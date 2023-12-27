@@ -1,4 +1,4 @@
-# The Most Complete PyTorch Implementation of "Deep Interest Evolution Network for Click-Through Rate Prediction"
+# The Most Complete PyTorch Implementation of "Deep Interest Network for Click-Through Rate Prediction"
 
 [![LICENSE](https://img.shields.io/badge/license-MIT-green)](https://github.com/yeyingdege/ctr-din-pytorch/blob/main/LICENSE)
 [![Python](https://img.shields.io/badge/python-3.9-blue.svg)](https://www.python.org/)
