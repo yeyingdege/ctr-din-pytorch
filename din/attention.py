@@ -72,14 +72,3 @@ class LocalActivationUnit(nn.Module):
 
         return attention_output
 
-
-
-if __name__ == "__main__":
-    attn = DinAttentionLayer()
-    
-    import torch
-    b = torch.zeros((3, 1, 4))
-    c = torch.zeros((3, 20, 4))
-    d = torch.ones((3, 1))
-    y = attn(b, c, d)
-    print(y.shape)

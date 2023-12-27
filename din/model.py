@@ -7,23 +7,9 @@ from .fc import FCLayer
 from .attention import DinAttentionLayer
 
 
-
-dim_config = {
-    'user_exposed_time': 24,
-    'user_gender': 2,
-    'user_age': 9,
-    'history_article_id': 53932,   # multi-hot
-    'history_image_feature': 2048,
-    'history_categories': 23,
-    'query_article_id': 1856,    # one-hot
-    'query_image_feature': 2048,
-    'query_categories': 23
-}
-
-
 class DeepInterestNetwork(nn.Module):
     def __init__(self, n_uid, n_mid, n_cat, EMBEDDING_DIM, HIDDEN_DIM=[162,200,80,2]):
-        super().__init__()
+        super(DeepInterestNetwork, self).__init__()
         self.embedding_dim = EMBEDDING_DIM
         self.hid_dim = HIDDEN_DIM
 
@@ -78,7 +64,7 @@ class DeepInterestNetwork(nn.Module):
         attention_output = self.attn(item_eb, item_his_eb, mid_mask) # [128, 1, 36]
         att_fea = torch.sum(attention_output, dim=1)
         inp = torch.concat((uid_batch_eb, item_eb, item_his_eb_sum, item_eb * item_his_eb_sum, att_fea), dim=-1) # [128, 162]
-        # Fully connected layer
+
         y_hat = F.softmax(self.mlp(inp), dim=-1)
 
         return y_hat
@@ -96,7 +82,7 @@ if __name__ == "__main__":
     noclk_mids = torch.rand((B, sl, 5))
     noclk_cats = torch.rand_like(noclk_mids)
 
-    model = DeepInterestNetwork(n_uid=543060, n_mid=367983, n_cat=1601, EMBEDDING_DIM=18)
+    model = DeepInterestNetwork(n_uid=543060, n_mid=367983, n_cat=1601, EMBEDDING_DIM=12)
 
     y = model(uids, mids, cats, mid_his, cat_his, mid_mask, noclk_mids, noclk_cats)
     print(y.shape)
